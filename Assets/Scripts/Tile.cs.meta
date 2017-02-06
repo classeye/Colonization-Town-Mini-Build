@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: 4d49c46f4b2e3b249b800b97961bad66
+timeCreated: 1485673528
+licenseType: Free
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - desertSprite: {fileID: 21300000, guid: 7663e98c21149c24bb7274b08aef1a25, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
