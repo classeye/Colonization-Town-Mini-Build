@@ -5,61 +5,73 @@ using Random = UnityEngine.Random;      //Tells Random to use the Unity Engine r
 
 public class BoardManager : MonoBehaviour
 {
+    [Header("Board Generation Tile Stuff")]
     public int columns = 7;
     public int rows = 7;
-    public GameObject[] Tiles; //an array loaded with world tile objects
+    public GameObject[] tilePrefabs; //an array loaded with world tile objects
     public GameObject townTile; // the variable the town object will be stored in
     private Transform boardHolder; //variable for the transform of the board
-    private string tileID;
 
+    public GameObject[] ColonistPrefabs;
+    public int numColonists = 3;
+
+    public List<Vector3> availableTiles;
+        //Vector3[] availableTiles;
+        
 
     public void CreateBoard() //called by GameManager
     {
         boardHolder = new GameObject("Board").transform; // set boardholder to board transform
 
-        int tileNum = new int();
-        tileNum = 0;
+        string tileID; //string used to nme generated tiles
+        int tileIDx = -1; //first digit of tileID
+        int tileIDy = -1; //second digit of tileID
+        
 
-        //once for every column
-        for (int x = 0; x < columns; x++)
+
+        for (int x = 0; x < columns; x++) //once for every column
         {
-            //and once for every row
-            for (int y = 0; y < rows; y++)
+            tileIDx++;
+            
+            for (int y = 0; y < rows; y++) //and once for every row
             {
-                tileNum++;
+                tileIDy++;
 
-                //instantiate a tile from the world tiles list
-                GameObject toInstantiate = Tiles[Random.Range(0, Tiles.Length)];
-                //unless it is tile 3,3. in which case load the town tile
-                if (x == 3 && y == 3)
+                Vector3 newTileVector = new Vector3(x, y, 0f);
+                availableTiles.Add(newTileVector);
+                                
+                GameObject tilePick = tilePrefabs[Random.Range(0, tilePrefabs.Length)]; //instantiate a tile from the world tiles list
+                if (x == 3 && y == 3) //unless it is tile 3,3. in which case load the town tile
                 {
-                toInstantiate = townTile;
-                }
-                //the instantiate that chosen object at row/column in this for loop
-                GameObject instance = Instantiate(toInstantiate, new Vector3(x, y, 0f), Quaternion.identity);
-                //and parent it to boardholder
-                instance.transform.SetParent(boardHolder);
-                //instance.gameObject.name = "Tile" + tileID;
-                if (tileNum < 10)
-                {
-                    tileID = "0" + tileNum.ToString();
-                }
-                else
-                {
-                    tileID = tileNum.ToString();
+                tilePick = townTile;
                 }
 
+                GameObject instance = Instantiate(tilePick, new Vector3(x, y, 0f), Quaternion.identity); //the instantiate that chosen object at row/column in this for loop
+                instance.transform.SetParent(boardHolder);  //and parent it to boardholder
 
+                tileID = tileIDx.ToString() + tileIDy.ToString(); // set name to "Tile" x coordinate y coordinate
                 instance.gameObject.name = "Tile" + tileID;
             }
-         
-                
-                    
-   
-
             }
         }
+
+    public void GenerateColonists()
+    {
+        for (int colID = 0; colID < numColonists; colID++)
+        {
+            //Debug.Log("ID " + colID);
+            int randomIndex = Random.Range(0, availableTiles.Count); //picks a random tile coordinate
+            Vector3 newColVector = availableTiles[randomIndex]; //reserves coordinate for instantiation
+            availableTiles.RemoveAt(randomIndex); //removes picked coordinate from list
+            GameObject colPick = ColonistPrefabs[Random.Range(0, ColonistPrefabs.Length)];
+            GameObject instance = Instantiate(colPick, newColVector, Quaternion.identity);
+            
+        }
     }
+}
+
+
+
 
   
   

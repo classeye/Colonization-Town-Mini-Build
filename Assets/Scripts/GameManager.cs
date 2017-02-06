@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour {
     void InitiateGame()
     {
         boardScript.CreateBoard();
+        boardScript.GenerateColonists();
     }
 
 }
