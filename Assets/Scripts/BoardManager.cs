@@ -16,11 +16,18 @@ public class BoardManager : MonoBehaviour
     public int numColonists = 3;
 
     public List<Vector3> availableTiles;
-        //Vector3[] availableTiles;
-        
+
+    public GameManager manager;
+
+
 
     public void CreateBoard() //called by GameManager
     {
+        //
+        //move to colonist manager
+        //
+        manager = GetComponent<GameManager>(); //move to colonist manager
+
         boardHolder = new GameObject("Board").transform; // set boardholder to board transform
 
         string tileID; //string used to nme generated tiles
@@ -55,6 +62,9 @@ public class BoardManager : MonoBehaviour
             }
         }
 
+    //
+    //move to colonist manager
+    //
     public void GenerateColonists()
     {
         for (int colID = 0; colID < numColonists; colID++)
@@ -65,6 +75,7 @@ public class BoardManager : MonoBehaviour
             availableTiles.RemoveAt(randomIndex); //removes picked coordinate from list
             GameObject colPick = ColonistPrefabs[Random.Range(0, ColonistPrefabs.Length)];
             GameObject instance = Instantiate(colPick, newColVector, Quaternion.identity);
+            instance.GetComponent<ColonistScript>().SetManager(manager);
             
         }
     }
