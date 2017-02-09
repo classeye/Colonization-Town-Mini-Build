@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class ColonistScript : MonoBehaviour, IPointerClickHandler{
+public class CitizenScript : MonoBehaviour, IPointerClickHandler{
     
     [SerializeField]bool isFollowing;
     [SerializeField]GameObject currentTile;
-    [SerializeField]GameManager GM;
+    [SerializeField]CitizenManager CM;
 
 
-    public void SetManager(GameManager manager) {
-        GM = manager;
+    public void SetManager(CitizenManager manager) {
+        CM = manager;
     }
     
 
@@ -31,9 +31,12 @@ public class ColonistScript : MonoBehaviour, IPointerClickHandler{
     public void OnPointerClick(PointerEventData eventdata)
     {
         //isFollowing = !isFollowing;
+        CM.getCitizen(this);
+        Debug.Log(gameObject.name + " was clicked");
+        
     }
 
-    void followMouse()
+    public void followMouse()
     {
         Vector3 followPosition;
         followPosition = new Vector3(Camera.main.ScreenToWorldPoint(Input.mousePosition).x, Camera.main.ScreenToWorldPoint(Input.mousePosition).y, 0f);  

@@ -3,8 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour {
+    [SerializeField]
+    BoardManager boardScript;
+    [SerializeField]
+    CitizenManager citizenManager;
 
-    private BoardManager boardScript;
+    [SerializeField]bool holdingColonist;
+
 
     //public ColonistScript selectedColonist;
 
@@ -12,13 +17,17 @@ public class GameManager : MonoBehaviour {
     {
        //attach variable to BoardManager script
         boardScript = GetComponent<BoardManager>();
+        citizenManager = GetComponent<CitizenManager>();
         InitiateGame();
     }
 
     void InitiateGame()
     {
         boardScript.CreateBoard();
-        boardScript.GenerateColonists();
+        boardScript.GenerateCitizens();
+        citizenManager.startManager();
+        
+
     }
 
     /*
