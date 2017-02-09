@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class Tile : MonoBehaviour, IPointerClickHandler, IDropHandler, IDragHandler {
+
+    /*
     [SerializeField]string tileName;
     [SerializeField]int baseFood;
     [SerializeField]int baseWood;
@@ -16,6 +18,7 @@ public class Tile : MonoBehaviour, IPointerClickHandler, IDropHandler, IDragHand
         baseWood = bWood;
         baseMetal = bMetal;
     }
+    */
 
     public void OnPointerClick(PointerEventData eventdata)
     {
