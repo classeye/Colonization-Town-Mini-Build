@@ -12,15 +12,23 @@ public class BoardManager : MonoBehaviour
     public GameObject townTile; // the variable the town object will be stored in
     private Transform boardHolder; //variable for the transform of the board
 
-    public GameObject[] ColonistPrefabs;
-    public int numColonists = 3;
+    public GameObject[] CitizenPrefabs;
+    public int numCitizens = 3;
 
     public List<Vector3> availableTiles;
-        //Vector3[] availableTiles;
-        
 
-    public void CreateBoard() //called by GameManager
+    //public Citizen
+    public CitizenManager manager;
+
+
+
+    public void CreateBoard() //called by CitizenManager
     {
+        //
+        //move to Citizen manager
+        //
+        manager = GetComponent<CitizenManager>(); //move to Citizen manager
+
         boardHolder = new GameObject("Board").transform; // set boardholder to board transform
 
         string tileID; //string used to nme generated tiles
@@ -55,16 +63,20 @@ public class BoardManager : MonoBehaviour
             }
         }
 
-    public void GenerateColonists()
+    //
+    //move to Citizen manager
+    //
+    public void GenerateCitizens()
     {
-        for (int colID = 0; colID < numColonists; colID++)
+        for (int colID = 0; colID < numCitizens; colID++)
         {
             //Debug.Log("ID " + colID);
             int randomIndex = Random.Range(0, availableTiles.Count); //picks a random tile coordinate
             Vector3 newColVector = availableTiles[randomIndex]; //reserves coordinate for instantiation
             availableTiles.RemoveAt(randomIndex); //removes picked coordinate from list
-            GameObject colPick = ColonistPrefabs[Random.Range(0, ColonistPrefabs.Length)];
+            GameObject colPick = CitizenPrefabs[Random.Range(0, CitizenPrefabs.Length)];
             GameObject instance = Instantiate(colPick, newColVector, Quaternion.identity);
+            instance.GetComponent<CitizenScript>().SetManager(manager);
             
         }
     }
