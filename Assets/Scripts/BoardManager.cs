@@ -7,6 +7,7 @@ public class BoardManager : MonoBehaviour
 {
     [Header("Board Generation Tile Stuff")]
     public int columns = 7;
+    public int columnAdjustment = 3;
     public int rows = 7;
     public GameObject[] tilePrefabs; //an array loaded with world tile objects
     public GameObject townTile; // the variable the town object will be stored in
@@ -17,7 +18,6 @@ public class BoardManager : MonoBehaviour
 
     public List<Vector3> availableTiles;
 
-    //public Citizen
     public CitizenManager manager;
 
 
@@ -37,7 +37,7 @@ public class BoardManager : MonoBehaviour
         
 
 
-        for (int x = 0; x < columns; x++) //once for every column
+        for (int x = (0-columnAdjustment); x < (columns- columnAdjustment); x++) //once for every column
         {
             tileIDx++;
             
@@ -47,6 +47,9 @@ public class BoardManager : MonoBehaviour
 
                 Vector3 newTileVector = new Vector3(x, y, 0f);
                 availableTiles.Add(newTileVector);
+
+                List<Vector3> someTiles = new List<Vector3>();
+                someTiles.Add(newTileVector);
                                 
                 GameObject tilePick = tilePrefabs[Random.Range(0, tilePrefabs.Length)]; //instantiate a tile from the world tiles list
                 if (x == 3 && y == 3) //unless it is tile 3,3. in which case load the town tile

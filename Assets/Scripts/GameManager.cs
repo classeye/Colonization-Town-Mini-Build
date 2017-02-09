@@ -8,11 +8,6 @@ public class GameManager : MonoBehaviour {
     [SerializeField]
     CitizenManager citizenManager;
 
-    [SerializeField]bool holdingColonist;
-
-
-    //public ColonistScript selectedColonist;
-
     void Awake()
     {
        //attach variable to BoardManager script
