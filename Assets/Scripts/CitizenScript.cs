@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class CitizenScript : MonoBehaviour, IPointerClickHandler{
+public class CitizenScript : MonoBehaviour{
     
     [SerializeField]GameObject currentTile;
     [SerializeField]CitizenManager CM;
@@ -14,14 +14,9 @@ public class CitizenScript : MonoBehaviour, IPointerClickHandler{
         CM = manager;
     }
 
-    void Update()
+    public void GetClicked()
     {
-    }
-
-    public void OnPointerClick(PointerEventData eventdata)
-    {        
         CM.clickCitizen(this);
-        Debug.Log(gameObject.name + " was clicked");   
     }
 
     public void StartFollow()

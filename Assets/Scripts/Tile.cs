@@ -22,7 +22,7 @@ public class Tile : MonoBehaviour, IPointerClickHandler, IDropHandler, IDragHand
 
     public void OnPointerClick(PointerEventData eventdata)
     {
-        Debug.Log(this.gameObject.name + " got OnPointerClicked yo.");
+        //Debug.Log(this.gameObject.name + " got OnPointerClicked yo.");
     }
 
     public void OnDrag(PointerEventData eventdata)
@@ -31,6 +31,6 @@ public class Tile : MonoBehaviour, IPointerClickHandler, IDropHandler, IDragHand
 
     public void OnDrop(PointerEventData eventdata)
     {
-        Debug.Log(this.gameObject.name + " got OnDropped ouch!");
+        //Debug.Log(this.gameObject.name + " got OnDropped ouch!");
     }
 }
