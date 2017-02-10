@@ -5,7 +5,7 @@ using UnityEngine;
 public class CitizenManager : MonoBehaviour {
 
     [SerializeField]
-    CitizenScript selectedCitizen;
+    CitizenScript storedCitizen;
     [SerializeField]
     bool holdingCitizen;
 
@@ -15,22 +15,36 @@ public class CitizenManager : MonoBehaviour {
         holdingCitizen = false;
     }
 
-    public void getCitizen(CitizenScript newCitizen)
+
+    public void clickCitizen(CitizenScript clickedCitizen)
     {
-        if (holdingCitizen == false)
+        if (!holdingCitizen)
         {
-            selectedCitizen = newCitizen;
+            storedCitizen = clickedCitizen;
+            storedCitizen.StartFollow();
             holdingCitizen = true;
+            return;
+        }
+
+        if (holdingCitizen) //testing logic, will need to change once start designing 
+        {
+            holdingCitizen = false;
+            storedCitizen.ReturnHome();
+            storedCitizen = null;        
         }
     }
+
 
     private void Update()
     {        
         if(holdingCitizen == true)
         {
-            selectedCitizen.followMouse();
+            storedCitizen.FollowMouse();
         }
     }
+
+
+   
 
 
 }
