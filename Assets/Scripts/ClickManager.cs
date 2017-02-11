@@ -15,17 +15,10 @@ public class ClickManager : MonoBehaviour {
         holdingCitizen = false;
     }
 
-
-    //Core Click controls
-    //-----------------------------------
-    //-----------------------------------
     private void Update()
     {
-        //Debug.Log("Updating");
-
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0)) //If left click
         {
-            //Debug.Log("click");
             click();
         }
 
@@ -47,8 +40,16 @@ public class ClickManager : MonoBehaviour {
 
         if (hit.collider.tag == "Citizen")
         {
-            Debug.Log("it's a citizen, Jim");
+            //Debug.Log("it's a citizen, Jim");
             clickCitizen(hit.collider.gameObject.GetComponent<CitizenScript>());
+            return;
+        }
+
+        if (hit.collider.tag == "WorldTile")
+        {
+            Debug.Log("Clicked " + hit.collider.gameObject.name);
+            ClickWorldTile(hit.collider.gameObject.GetComponent<TileScript>());
+            return;
         }
     }
     //-----------------------------------
@@ -66,10 +67,43 @@ public class ClickManager : MonoBehaviour {
         }
         if (holdingCitizen) //testing logic, will need to change once start designing 
         {
-            holdingCitizen = false;
-            storedCitizen.ReturnHome();
-            storedCitizen = null;        
+            ReturnCitizen();
         }
+    }
+
+    public void ClickWorldTile(TileScript clickedTile)
+    {
+        if (holdingCitizen)
+        {
+            if (clickedTile.CheckFull())
+            {
+                ReturnCitizen();
+                return;
+            }
+
+            if (!clickedTile.CheckFull())
+            {
+                PlaceCitizen(clickedTile);
+            }
+        }
+    }
+
+    //void TakeCitizen()
+
+    void ReturnCitizen()
+    {
+        holdingCitizen = false;
+        storedCitizen.ReturnHome();
+        storedCitizen = null;
+        return;
+    }
+
+    void PlaceCitizen(TileScript newHome)
+    {
+        holdingCitizen = false;
+        storedCitizen.SetHome(newHome);
+        storedCitizen = null;
+
     }
 
 }

@@ -26,5 +26,12 @@ public class CitizenScript : MonoBehaviour{
         transform.position = lastLocation;
         this.GetComponent<BoxCollider2D>().enabled = true;
     }
+
+    public void SetHome(TileScript newTile)
+    {
+        transform.position = newTile.transform.position;
+        this.GetComponent<BoxCollider2D>().enabled = true;
+    }
+
 }
 
