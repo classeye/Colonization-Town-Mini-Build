@@ -19,7 +19,7 @@ public class ClickManager : MonoBehaviour {
     {
         if (Input.GetMouseButtonDown(0)) //If left click
         {
-            click();
+            click(); //check for thing under mouse
         }
 
         if (holdingCitizen == true)
@@ -52,9 +52,6 @@ public class ClickManager : MonoBehaviour {
             return;
         }
     }
-    //-----------------------------------
-    //-----------------------------------
-
         
     public void clickCitizen(CitizenScript clickedCitizen)
     {
