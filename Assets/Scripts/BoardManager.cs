@@ -18,17 +18,12 @@ public class BoardManager : MonoBehaviour
 
     public List<Vector3> availableTiles;
 
-    public CitizenManager manager;
+    public ClickManager manager;
 
 
 
-    public void CreateBoard() //called by CitizenManager
+    public void CreateBoard() 
     {
-        //
-        //move to Citizen manager
-        //
-        manager = GetComponent<CitizenManager>(); //move to Citizen manager
-
         boardHolder = new GameObject("Board").transform; // set boardholder to board transform
 
         string tileID; //string used to nme generated tiles
@@ -79,7 +74,7 @@ public class BoardManager : MonoBehaviour
             availableTiles.RemoveAt(randomIndex); //removes picked coordinate from list
             GameObject colPick = CitizenPrefabs[Random.Range(0, CitizenPrefabs.Length)];
             GameObject instance = Instantiate(colPick, newColVector, Quaternion.identity);
-            instance.GetComponent<CitizenScript>().SetManager(manager);
+            ClickManager CM = this.GetComponent<ClickManager>();
             
         }
     }

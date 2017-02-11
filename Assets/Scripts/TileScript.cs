@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class Tile : MonoBehaviour, IPointerClickHandler, IDropHandler, IDragHandler {
+public class TileScript : MonoBehaviour {
+    [SerializeField]
+    bool holdingCitizen =false;
+
 
     /*
     [SerializeField]string tileName;
@@ -20,17 +23,14 @@ public class Tile : MonoBehaviour, IPointerClickHandler, IDropHandler, IDragHand
     }
     */
 
-    public void OnPointerClick(PointerEventData eventdata)
+    public bool CheckFull()
     {
-        Debug.Log(this.gameObject.name + " got OnPointerClicked yo.");
+        if (holdingCitizen)
+        {
+            return true;
+        }
+            return false;
     }
 
-    public void OnDrag(PointerEventData eventdata)
-    {
-    }
-
-    public void OnDrop(PointerEventData eventdata)
-    {
-        Debug.Log(this.gameObject.name + " got OnDropped ouch!");
-    }
+      
 }

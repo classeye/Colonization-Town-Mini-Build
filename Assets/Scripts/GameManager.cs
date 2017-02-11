@@ -4,27 +4,26 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour {
     [SerializeField]
-    BoardManager boardScript;
+    BoardManager BM;
     [SerializeField]
-    CitizenManager citizenManager;
+    ClickManager CM;
 
-    
     void Awake()
     {
        //attach variable to BoardManager script
-        boardScript = GetComponent<BoardManager>();
-        citizenManager = GetComponent<CitizenManager>();
+        BM = GetComponent<BoardManager>();
+        CM = GetComponent<ClickManager>();
         InitiateGame();
     }
 
     void InitiateGame()
     {
-        boardScript.CreateBoard();
-        boardScript.GenerateCitizens();
-        citizenManager.startManager(); 
+        BM.CreateBoard();
+        BM.GenerateCitizens();
+        CM.startManager(); 
     }
 
-    
+
     
 
 }
