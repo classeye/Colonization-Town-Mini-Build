@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class ClickManager : MonoBehaviour {
 
-    [SerializeField]
-    CitizenScript storedCitizen;
-    [SerializeField]
-    bool holdingCitizen;
+    [SerializeField] CitizenScript storedCitizen;
+    [SerializeField] bool holdingCitizen;
+    
+    public LayerMask layerCitizens;
+    public LayerMask layerAll;
 
 
     public void startManager()
@@ -29,9 +30,13 @@ public class ClickManager : MonoBehaviour {
     }
 
     private void click()
-    {
-        //raycast to check what is under mouse
-        RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), -Vector2.up);
+    {   
+        //select what layers to include or exclude
+        LayerMask maskType = SelectLayer();
+        //raycast checking for selected layer under mouse
+        RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), -Vector2.up, Mathf.Infinity, maskType);
+        
+
         if (hit.collider == null)
         {
             Debug.Log("hit nothing");
@@ -51,6 +56,7 @@ public class ClickManager : MonoBehaviour {
             ClickWorldTile(hit.collider.gameObject.GetComponent<TileScript>());
             return;
         }
+        
     }
         
     public void clickCitizen(CitizenScript clickedCitizen)
@@ -68,18 +74,30 @@ public class ClickManager : MonoBehaviour {
         }
     }
 
+    LayerMask SelectLayer()
+    {
+        if (holdingCitizen == true)
+        {
+            return ~layerCitizens;
+        }
+        return layerAll;
+    }
+
     public void ClickWorldTile(TileScript clickedTile)
     {
         if (holdingCitizen)
         {
             if (clickedTile.CheckFull())
             {
+                Debug.Log("clickTile was full");
                 ReturnCitizen();
                 return;
             }
 
             if (!clickedTile.CheckFull())
             {
+                Debug.Log("clickTile was not full");
+                clickedTile.addCitizen(storedCitizen);
                 PlaceCitizen(clickedTile);
             }
         }

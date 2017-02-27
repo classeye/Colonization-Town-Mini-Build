@@ -5,12 +5,13 @@ using UnityEngine.EventSystems;
 
 public class CitizenScript : MonoBehaviour{
     
-    [SerializeField]GameObject currentTile;
-    [SerializeField]Vector3 lastLocation;
+    [SerializeField] TileScript currentTile;
+    [SerializeField] Vector3 lastLocation;
 
     
     public void StartFollow()
     {
+        currentTile.RemoveCitizen(this);
         lastLocation = transform.position;
         this.GetComponent<BoxCollider2D>().enabled = false;
     }
@@ -30,6 +31,7 @@ public class CitizenScript : MonoBehaviour{
     public void SetHome(TileScript newTile)
     {
         transform.position = newTile.transform.position;
+        currentTile = newTile;
         this.GetComponent<BoxCollider2D>().enabled = true;
     }
 

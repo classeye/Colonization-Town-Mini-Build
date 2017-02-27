@@ -4,10 +4,8 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour {
 
-    [SerializeField]
-    BoardManager BM;
-    [SerializeField]
-    ClickManager CM;
+    [SerializeField] BoardManager BM;
+    [SerializeField] ClickManager CM;
 
     void Awake()
     {
@@ -23,8 +21,4 @@ public class GameManager : MonoBehaviour {
         BM.GenerateCitizens();
         CM.startManager(); 
     }
-
-
-    
-
 }
